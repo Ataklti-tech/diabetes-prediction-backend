@@ -25,7 +25,7 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173", "http://localhost:8000", "https://diabetes-prediction-frontend-5evkwq6ol-ataklti-okbes-projects.vercel.app/"],
+    allow_origins=["https://diabetes-prediction-frontend-5evkwq6ol-ataklti-okbes-projects.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
