@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator, ConfigDict
 from typing import Optional, Dict, Any
 import numpy as np
+import os
 import joblib
 from pathlib import Path
 from datetime import datetime
@@ -30,10 +31,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load model and scaler
+# # Load model and scaler
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "models" / "diabetes_model.pkl"
-SCALER_PATH = BASE_DIR / "models" / "scaler.pkl"
+# MODEL_PATH = BASE_DIR / "models" / "diabetes_model.pkl"
+# SCALER_PATH = BASE_DIR / "models" / "scaler.pkl"
+
+
+
+MODEL_PATH = Path(os.getenv("MODEL_PATH", BASE_DIR / "models/diabetes_model.pkl"))
+SCALER_PATH = Path(os.getenv("SCALER_PATH", BASE_DIR / "models/scaler.pkl"))
+
 
 # Initialize model and scaler
 model = None
