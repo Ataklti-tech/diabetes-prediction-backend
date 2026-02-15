@@ -25,7 +25,9 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://diabetes-prediction-frontend-5evkwq6ol-ataklti-okbes-projects.vercel.app/"],
+    allow_origins=["http://localhost:3000",
+      "http://localhost:5174", "https://diabetes-prediction-frontend-git-main-ataklti-okbes-projects.vercel.app", "https://diabetes-prediction-frontend-two.vercel.app", "https://diabetes-prediction-frontend-hq841mf2n-ataklti-okbes-projects.vercel.app/"
+     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -36,11 +38,8 @@ BASE_DIR = Path(__file__).resolve().parent
 # MODEL_PATH = BASE_DIR / "models" / "diabetes_model.pkl"
 # SCALER_PATH = BASE_DIR / "models" / "scaler.pkl"
 
-
-
 MODEL_PATH = Path(os.getenv("MODEL_PATH", BASE_DIR / "models/diabetes_model.pkl"))
 SCALER_PATH = Path(os.getenv("SCALER_PATH", BASE_DIR / "models/scaler.pkl"))
-
 
 # Initialize model and scaler
 model = None
@@ -356,6 +355,11 @@ async def test_scaling():
         "results": results
     }
 
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
